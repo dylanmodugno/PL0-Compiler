@@ -1,0 +1,290 @@
+Scanning Errors:
+Input:
+var x, y;
+begin	
+  x := y + 123456789;
+end.
+
+Error:
+0 - Error in Scanning: Number 123456789 exceeds max length of 5 digits
+
+
+Input:
+var abcdefghijklmno, y;
+begin	
+  x := y + 56;
+end.
+
+Error:
+0 - Error in Scanning: Variable abcdefghijklmno exceeds max length of 11 characters
+
+
+Input:
+var 123abc, y;
+begin	
+  x := y + 56;
+end.
+
+Error:
+0 - Error in Scanning: Variable 123abc begins with non letter character
+
+
+Input:
+var x, y;
+begin	
+  x := y % 56;
+end.
+
+Error:
+0 - WARNING: Invalid Symbol: % at character 26
+
+***********************************************************************************************************************************************************************************
+
+Parsing Errors:
+Input:
+/* Nothing is Here*/
+
+Error:
+Error Type 1 - Missing a period at the end of the program
+
+Input:
+const 4
+
+Error:
+Error Type 2 - Constant not followed by an identifier
+
+
+Input:
+const x = 4, x = 5
+
+Error:
+Error Type 3 - Constants x already exists in symbol table
+
+
+Input:
+const x
+
+Error:
+Error Type 4 - No = after a constant
+
+
+Input:
+const x =
+
+Error:
+Error Type 5 - No number following assignment
+
+
+Input:
+const x = 6
+
+Error:
+Error Type 6 - Constant declaration not followed by a semicolon
+
+
+Input:
+var
+
+Error:
+Error Type 7 - Variable declaration not followed by an identifier
+
+
+Input:
+var y, y
+
+Error:
+Error Type 8 - Variable y already exists in symbol table
+
+
+Input:
+var y
+
+Error:
+Error Type 9 - Variable declaration not followed by a semicolon
+
+
+Input:
+x := 4;
+
+Error:
+Error Type 10 - Identifier not in symbol table when expected to be in symbol table
+
+
+Input:
+const x = 7;
+        x := 5;
+
+Error:
+Error Type 11 - Assigning a value to x which is a non variable
+
+
+Input:
+var x;
+        x 5;
+
+Error:
+Error Type 12 - Did not encounter expected := operator
+
+
+Input:
+begin
+
+Error:
+Error Type 13 - No end after begin
+
+
+Input:
+var b;
+begin
+	read b;
+	if b < 0
+		write b
+end.
+
+Error:
+Error Type 14 - If not followed by a then
+
+
+Input:
+const number = 7;
+var input;
+begin
+	while input <> number
+		read input
+end.
+
+Error:
+Error Type 15 - While not followed by a do
+
+
+Input:
+const number = 7;
+var input;
+begin
+	while input <> number do
+		read
+end.
+
+Error:
+Error Type 16 - Read not followed by an identifier
+
+
+Input:
+const number = 7;
+var input;
+begin
+	write
+end.
+
+Error:
+Error Type 22 - Write not followed by an identifier
+
+
+Input:
+var input;
+begin
+        read x
+end.
+
+Error:
+Error Type 17 - Identifier for read or write not in symbol table
+
+
+Input:
+const x = 17;
+begin
+	read x
+end.
+
+Error:
+Error Type 18 - Identifier for read is not a variable
+
+
+Input:
+const x = 17, y = 18;
+begin
+	if x := y then
+end.
+
+Error:
+Error Type 19 - Did not encounter the expected relational operator
+
+
+Input:
+const x = 17;
+begin
+	if x = y then
+end.
+
+Error:
+Error Type 20 - Identifier for Factor is not in symbol table
+
+
+Input:
+const x = 17;
+begin
+	if (x = y then
+end.
+
+Error:
+Error Type 21 - No closing parenthesis after an open parenthesis
+
+
+Input:
+const x = 17;
+begin
+	if then
+end.
+
+Error:
+Error Type 23 - Unexpected token in factor
+
+
+Input:
+var f, n;
+procedure fact
+var ans1;
+begin
+ ans1:=n;
+ n:= n-1;
+ if n = 0 then f := 1;
+ if n > 0 then call fact;
+ f:=f*ans1;
+end;
+
+begin
+n:=3;
+call fact;
+write f
+end.
+
+Error Type 24 - Procedure declaration not followed by a semicolon
+
+Input:
+var f, n;
+procedure fact;
+var ans1;
+begin
+ ans1:=n;
+ n:= n-1;
+ if n = 0 then f := 1;
+ if n > 0 then call fact;
+ f:=f*ans1;
+end;
+procedure fact;
+var ans1;
+begin
+ ans1:=n;
+ n:= n-1;
+ if n = 0 then f := 1;
+ if n > 0 then call fact;
+ f:=f*ans1;
+end;
+
+begin
+n:=3;
+call fact;
+write f
+end.
+
+Error Type 25 - Procedure already exists in the symbol table with same lex level
